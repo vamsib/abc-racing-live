@@ -29,7 +29,7 @@ const serverCtx = await esbuild.context({
     '.ttf': 'file',
     '.woff2': 'file'
   },
-  assetNames: "assets/[name]-[hash]",
+  assetNames: "/assets/[name]-[hash]",
   treeShaking: true,
   minify: true,
   logLevel: 'info',

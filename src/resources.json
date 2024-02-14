@@ -1,0 +1,32 @@
+{
+    "en": {
+      "translation": {
+        "News": "News",
+        "Schedules": "Schedules",
+        "Rankings": "Rankings",
+        "Login": "Login",
+        "SignUp": "Sign Up",
+        "ABCRacing": "ABC Racing",
+        "ABCRacingNews": "ABC Racing - News",
+        "ABCRacingSchedules": "ABC Racing - Schedules",
+        "ABCRacingRankings": "ABC Racing - Rankings",
+        "ABCRacingLogin": "ABC Racing - Login",
+        "ABCRacingSignUp": "ABC Racing - Sign Up"
+      }
+    },
+    "es": {
+      "translation": {
+        "News": "Noticias",
+        "Schedules": "Horarios",
+        "Rankings": "Clasificaciones",
+        "Login": "Acceso",
+        "SignUp": "Inscribirse",
+        "ABCRacing": "ABC Carreras",
+        "ABCRacingNews": "ABC Carreras - Noticias",
+        "ABCRacingSchedules": "ABC Carreras - Horarios",
+        "ABCRacingRankings": "ABC Carreras - Clasificaciones",
+        "ABCRacingLogin": "ABC Carreras - Acceso",
+        "ABCRacingSignUp": "ABC Carreras - Inscribirse"
+      }
+    }
+  }

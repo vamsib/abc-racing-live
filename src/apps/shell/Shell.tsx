@@ -17,22 +17,30 @@ type ShellProps = object;
 const Shell = ({ children }: React.PropsWithChildren<ShellProps>) => {
   globalStyles();
   const [isModalNavOpen, setIsModalNavOpen] = useState(false);
-  function toggleModalNav() {
+  function toggleModalNav(e: { preventDefault: () => void }) {
+    e.preventDefault();
     setIsModalNavOpen(!isModalNavOpen);
   }
+  let pageWithNav = false;
   const location = useLocation();
+  if (location.search) {
+    const params = new URLSearchParams(location.search);
+    if (params.get("menu") == "on") {
+      pageWithNav = true;
+    }
+  }
   useEffect(() => {
     setIsModalNavOpen(false);
   }, [location]);
   return (
     <StyledShell>
       <Header>
-        <Logo src={logo}></Logo>
+        <Logo src={logo} alt="ABC Racing logo"></Logo>
         <ModalNavTrigger isOpen={isModalNavOpen} onToggle={toggleModalNav} />
       </Header>
       <Main>
         {children}
-        {isModalNavOpen ? <ModalNav></ModalNav> : <></>}
+        {isModalNavOpen || pageWithNav ? <ModalNav></ModalNav> : <></>}
       </Main>
       <Footer></Footer>
     </StyledShell>

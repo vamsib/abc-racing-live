@@ -7,7 +7,7 @@ const Live = () => {
   useEffect(() => {
     setPositions(getPositions());
   }, []);
-  return (
+  return positions?.length ? (
     <LivePositions>
       <thead>
         <th>Pos.</th>
@@ -30,6 +30,8 @@ const Live = () => {
         ))}
       </tbody>
     </LivePositions>
+  ) : (
+    <></>
   );
 };
 

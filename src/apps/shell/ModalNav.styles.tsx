@@ -9,7 +9,7 @@ export const Nav = styled("nav", {
   top: "10%",
 });
 
-export const MenuButton = styled("button", {
+export const MenuButton = styled("a", {
   background: "none",
   border: "0 none",
 });
@@ -71,3 +71,7 @@ export const SecondaryNavLink = styled(Link, {
     fontSize: "$largeCopy",
   },
 });
+
+export const LanguageSwitcher = styled("ul", {});
+
+export const LanguageSelector = styled("button", {});

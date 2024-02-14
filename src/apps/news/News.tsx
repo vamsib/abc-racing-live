@@ -1,10 +1,12 @@
 import React, { Component, useEffect, useRef, useState } from "react";
-import { NewsList, NewsListItem } from "./News.styles";
+import { NewsList, NewsListItem, NewsPage } from "./News.styles";
 import {
   getNewsListing,
   NewsListItem as NewsItem,
   NewsListItemImage,
 } from "./News.domain";
+import { Heading } from "../../ds/typography/Headings";
+import { useTranslation } from "react-i18next";
 
 const withSSR = (Component: any, dataId: string, init: () => any) => {
   return () => {
@@ -53,21 +55,25 @@ function getSrcSet(images: NewsListItemImage) {
 }
 
 const News = ({ news }: NewsProps) => {
+  const { t } = useTranslation();
   return (
-    <NewsList>
-      {news?.length &&
-        news.map((item, i) => (
-          <NewsListItem key={`news-${i}`}>
-            <img
-              srcSet={getSrcSet(item.image)}
-              sizes="(min-width: 768px) 488px, 120px"
-              src={item.image.sm1.url}
-              alt={item.image.sm1.altText}
-            />
-            {item.title}
-          </NewsListItem>
-        ))}
-    </NewsList>
+    <NewsPage>
+      <Heading level={2}>{t("News")}</Heading>
+      <NewsList>
+        {news?.length &&
+          news.map((item, i) => (
+            <NewsListItem key={`news-${i}`}>
+              <img
+                srcSet={getSrcSet(item.image)}
+                sizes="(min-width: 768px) 488px, 120px"
+                src={item.image.sm1.url}
+                alt={item.image.sm1.altText}
+              />
+              {item.title}
+            </NewsListItem>
+          ))}
+      </NewsList>
+    </NewsPage>
   );
 };
 

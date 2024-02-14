@@ -1,9 +1,12 @@
 import { styled } from "../../ds/stitches.config";
 
+export const NewsPage = styled("div", {
+  margin: "$3",
+});
+
 export const NewsList = styled("ol", {
   listStyleType: "none",
   padding: "0",
-  margin: "$3",
 
   "@md": {
     display: "grid",

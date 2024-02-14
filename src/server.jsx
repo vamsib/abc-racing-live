@@ -4,8 +4,38 @@ import { StaticRouter } from "react-router-dom/server";
 import App from "./app";
 import path from 'path';
 import { getCssText } from "./ds/stitches.config";
+import { I18nextProvider, initReactI18next } from 'react-i18next';
+import routes from "./routes";
+import resources from "./resources.json";
+import { getTitles } from "./utils";
+var i18next = require('i18next')
+var middleware = require('i18next-http-middleware')
+
+
+const titles = getTitles(routes);
+console.log(titles);
+
+i18next
+.use(middleware.LanguageDetector)
+.use(initReactI18next)
+.init({
+  // the translations
+  // (tip move them in a JSON file and import them,
+  // or even better, manage them via a UI: https://react.i18next.com/guides/multiple-translation-files#manage-your-translations-with-a-management-gui)
+  resources,
+  fallbackLng: "en",
+  debug: true,
+  interpolation: {
+    escapeValue: false, // react already safes from xss => https://www.i18next.com/translation-function/interpolation#unescape
+  },
+});
 
 let app = express();
+
+app.use(
+  middleware.handle(i18next, {
+  })
+)
 
 app.use('/assets', express.static(path.join(__dirname, 'assets'), {
   setHeaders: function(res, path, stat){
@@ -17,16 +47,16 @@ app.use('/assets', express.static(path.join(__dirname, 'assets'), {
 }))
 
 app.get("*", (req, res) => {
-  console.log(req.url);
   let html = ReactDOMServer.renderToString(
     <StaticRouter location={req.url}>
-      <App />
+      <I18nextProvider i18n={req.i18n}><App /></I18nextProvider>      
     </StaticRouter>
   );
   const basePage = `<!DOCTYPE html>
   <html>
     <head>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>${req.t(titles[req.path]) || "ABC Racing"}</title>
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
@@ -34,7 +64,7 @@ app.get("*", (req, res) => {
       <style id="stitches">${getCssText()}</style>
       <script defer src="/assets/client.js"></script>
     </head>
-    <body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root">${html}</div></body>
+    <body><div id="root">${html}</div></body>
   </html>`
   res.send(basePage);
 });

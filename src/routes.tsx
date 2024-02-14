@@ -7,10 +7,19 @@ import Schedules from "./apps/schedules/Schedules";
 import Rankings from "./apps/rankings/Rankings";
 import Login from "./apps/user/Login";
 import SignUp from "./apps/user/SignUp";
+import { Page } from "./page";
+
+export type Route = {
+  path: string;
+  title: string;
+  element: React.ReactNode;
+  children: Route[];
+};
 
 export default [
   {
     path: "/",
+    title: "ABCRacing",
     element: (
       <Shell>
         <Outlet></Outlet>
@@ -19,31 +28,52 @@ export default [
     children: [
       {
         path: "/news",
+        title: "ABCRacingNews",
         element: (
-          <>
+          <Page>
             <Suspense fallback={<div>Live timings loading!</div>}>
               <Live></Live>
             </Suspense>
             <News></News>
-          </>
+          </Page>
         ),
       },
       {
         path: "/schedules",
-        element: <Schedules></Schedules>,
+        title: "ABCRacingSchedules",
+        element: (
+          <Page>
+            <Schedules></Schedules>
+          </Page>
+        ),
       },
       {
         path: "/rankings",
-        element: <Rankings></Rankings>,
+        title: "ABCRacingRankings",
+        element: (
+          <Page>
+            <Rankings></Rankings>
+          </Page>
+        ),
       },
 
       {
         path: "/user/login",
-        element: <Login></Login>,
+        title: "ABCRacingLogin",
+        element: (
+          <Page>
+            <Login></Login>
+          </Page>
+        ),
       },
       {
         path: "/user/sign-up",
-        element: <SignUp></SignUp>,
+        title: "ABCRacingSignUp",
+        element: (
+          <Page>
+            <SignUp></SignUp>
+          </Page>
+        ),
       },
     ],
   },
