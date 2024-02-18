@@ -1,10 +1,14 @@
 import { styled, globalCss } from "../../ds/stitches.config";
-import "../../ds/fonts/css/fontawesome.css";
-import "../../ds/fonts/css/solid.css";
+// import "../../ds/fonts/css/fontawesome-reduced.css";
+// import "../../ds/fonts/css/solid.css";
 
 export const globalStyles = globalCss({
-  html: { height: "100%", fontFamily: "Open Sans" },
-  body: { height: "100%", margin: "0" },
+  "@import": [
+    "../../ds/fonts/css/fontawesome-reduced.css",
+    "../../ds/fonts/css/solid.css",
+  ],
+  html: { height: "100%" },
+  body: { height: "100%", margin: "0", fontFamily: "Open Sans" },
   "#root": { height: "100%" },
   ".app": { height: "100%" },
 });

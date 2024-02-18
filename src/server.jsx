@@ -10,10 +10,9 @@ import resources from "./resources.json";
 import { getTitles } from "./utils";
 var i18next = require('i18next')
 var middleware = require('i18next-http-middleware')
-
+const compression = require('compression')
 
 const titles = getTitles(routes);
-console.log(titles);
 
 i18next
 .use(middleware.LanguageDetector)
@@ -31,6 +30,8 @@ i18next
 });
 
 let app = express();
+
+app.use(compression());
 
 app.use(
   middleware.handle(i18next, {
@@ -59,7 +60,9 @@ app.get("*", (req, res) => {
       <title>${req.t(titles[req.path]) || "ABC Racing"}</title>
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
+      <link rel="preload" href="/assets/fa-solid-900-ZZETRIYD.woff2" as="font" type="font/woff2" crossorigin>
+      <link rel="preload" href="https://fonts.gstatic.com/s/opensans/v40/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTS-mu0SC55I.woff2" as="font" type="font/woff2" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap" rel="stylesheet preload prefetch" as="style">
       <link href="/assets/client.css" rel="stylesheet" type="text/css"></link>
       <style id="stitches">${getCssText()}</style>
       <script defer src="/assets/client.js"></script>
