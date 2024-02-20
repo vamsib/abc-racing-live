@@ -1,33 +1,18 @@
-import { styled } from "../../ds/stitches.config";
+import { styled } from "../../ds/utils";
 
-export const NewsPage = styled("div", {
-  margin: "$3",
-});
+export const NewsPage = styled("div", ["ds-m-3"]);
 
-export const NewsList = styled("ol", {
-  listStyleType: "none",
-  padding: "0",
+export const NewsList = styled("ol", [
+  "md:ds-grid",
+  "md:ds-grid-cols-[[first-start]_1fr_[first-end_second-start]_1fr_[second-end]]",
+  "md:ds-gap-x-3",
+  "md:ds-gap-y-3",
+]);
 
-  "@md": {
-    display: "grid",
-    gridTemplateColumns:
-      "[first-start] 1fr [first-end second-start] 1fr [second-end]",
-    columnGap: "$3",
-    rowGap: "$3",
-  },
-});
-
-export const NewsListItem = styled("li", {
-  display: "flex",
-  marginBottom: "$3",
-  gap: "$2",
-
-  "@md": {
-    flexDirection: "column",
-    fontSize: "1.4rem",
-
-    img: {
-      width: "100%",
-    },
-  },
-});
+export const NewsListItem = styled("li", [
+  "ds-flex",
+  "ds-gap-2",
+  "ds-mb-3",
+  "md:ds-flex-col",
+  "md:ds-text-largeCopy",
+]);

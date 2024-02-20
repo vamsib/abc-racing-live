@@ -6,6 +6,7 @@ import routes from "./routes";
 import LanguageDetector from "i18next-browser-languagedetector";
 import { withSSR } from "react-i18next";
 import resources from "./resources.json";
+import "./app.tw.css";
 
 i18n
   .use(LanguageDetector)
@@ -40,7 +41,7 @@ function renderRoute({ path, element, children }: RouteSpec) {
 
 function App() {
   return (
-    <div className="app">
+    <div className="app ds-h-full">
       <Routes>{routes.map((route) => renderRoute(route))}</Routes>
     </div>
   );

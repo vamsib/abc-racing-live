@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  globalStyles,
-  StyledShell,
-  Header,
-  Logo,
-  Main,
-  Footer,
-} from "./Shell.styles";
+import { StyledShell, Header, Logo, Main, Footer } from "./Shell.styles";
 import logo from "../../ds/logos/logo.png";
 import ModalNavTrigger from "./ModalNavTrigger";
 import ModalNav from "./ModalNav";
@@ -15,7 +8,6 @@ import { useLocation } from "react-router-dom";
 type ShellProps = object;
 
 const Shell = ({ children }: React.PropsWithChildren<ShellProps>) => {
-  globalStyles();
   const [isModalNavOpen, setIsModalNavOpen] = useState(false);
   function toggleModalNav(e: { preventDefault: () => void }) {
     e.preventDefault();

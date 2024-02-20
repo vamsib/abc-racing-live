@@ -1,43 +1,24 @@
-import { styled, globalCss } from "../../ds/stitches.config";
-// import "../../ds/fonts/css/fontawesome-reduced.css";
-// import "../../ds/fonts/css/solid.css";
+import { styled } from "../../ds/utils";
+import "../../ds/fonts/css/fontawesome-reduced.css";
+import "../../ds/fonts/css/solid.css";
 
-export const globalStyles = globalCss({
-  "@import": [
-    "../../ds/fonts/css/fontawesome-reduced.css",
-    "../../ds/fonts/css/solid.css",
-  ],
-  html: { height: "100%" },
-  body: { height: "100%", margin: "0", fontFamily: "Open Sans" },
-  "#root": { height: "100%" },
-  ".app": { height: "100%" },
-});
+export const StyledShell = styled("div", [
+  "ds-h-full",
+  "ds-grid",
+  "ds-grid-rows-[[header-start]_10%_[header-end_main-start]_84%_[main-end_footer-start]_6%_[footer-end]]",
+]);
 
-export const StyledShell = styled("div", {
-  display: "grid",
-  height: "100%",
-  gridTemplateRows:
-    "[header-start] 10% [header-end main-start] 84% [main-end footer-start] 6% [footer-end]",
-});
+export const Header = styled("header", [
+  "ds-bg-primary",
+  "ds-flex",
+  "ds-justify-between",
+  "ds-items-center",
+  "ds-row-[header-start/header-end]",
+  "ds-px-3",
+]);
 
-export const Header = styled("header", {
-  backgroundColor: "$primary",
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
-  paddingLeft: "$3",
-  paddingRight: "$3",
-  gridRow: "header-start / header-end",
-});
+export const Logo = styled("img", ["ds-h-[70%]"]);
 
-export const Logo = styled("img", {
-  height: "70%",
-});
+export const Main = styled("main", ["ds-row-[main-start/main-end]"]);
 
-export const Main = styled("main", {
-  gridRow: "main-start / main-end",
-});
-
-export const Footer = styled("footer", {
-  gridRow: "footer-start / footer-end",
-});
+export const Footer = styled("footer", ["ds-row-[footer-start/footer-end]"]);

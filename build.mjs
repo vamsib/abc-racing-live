@@ -1,6 +1,22 @@
 import * as esbuild from 'esbuild'
+import { execSync } from 'child_process';
+import path from 'node:path';
 
-let examplePlugin = {
+let tailwindcss = {
+    name: 'tailwindcss',
+    setup(build) {
+      build.onStart(() => {
+        console.log('build started')
+        let stdout = execSync('npx tailwindcss -i ./src/app.tw.css -o ./src/app.css');
+      })
+
+      build.onResolve({ filter: /^.*app.tw.css$/ }, async (args) => {
+        return { path: path.join(args.resolveDir, args.path.replace('.tw.', '.')) }
+      })
+    },
+  }
+
+let importRestrictions = {
     name: 'example',
     setup(build) {
       build.onResolve({ filter: /^.*$/ }, async (args) => {
@@ -33,27 +49,30 @@ const serverCtx = await esbuild.context({
   treeShaking: true,
   minify: true,
   logLevel: 'info',
+  plugins: [tailwindcss]
 })
 
 let clientCtx = await esbuild.context({
     entryPoints: ["./src/index.jsx"],
     bundle: true,
-    outfile: 'dist/assets/client.js',
+    outdir: 'dist/assets',
     loader: {
       '.png': 'file',
       '.ttf': 'file',
       '.woff2': 'file'
     },
-    assetNames: "[name]-[hash]",
+    assetNames: "/assets/[name]-[hash]",
     treeShaking: true,
     minify: true,
     logLevel: 'info',
     metafile: true,
-  plugins: [examplePlugin]
+    format: "esm",
+    splitting: true,
+    plugins: [importRestrictions, tailwindcss]
 })
 
 await serverCtx.watch();
 await clientCtx.watch();
 
 
-// console.log(await esbuild.analyzeMetafile(result.metafile))
+// fs.writeFileSync('meta.json', JSON.stringify(result.metafile))

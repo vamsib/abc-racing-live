@@ -1,10 +1,3 @@
-import { styled } from "../stitches.config";
+import { styled } from "../utils";
 
-export const SROnlyText = styled("span", {
-  position: "absolute",
-  left: "-10000px",
-  top: "auto",
-  width: "1px",
-  height: "1px",
-  overflow: "hidden",
-});
+export const SROnlyText = styled("span", ["ds-sr-only"]);

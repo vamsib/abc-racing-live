@@ -1,6 +1,3 @@
-import { styled } from "../../ds/stitches.config";
+import { styled } from "../../ds/utils";
 
-export const ComingSoonMessage = styled("div", {
-  padding: "$3",
-  textAlign: "center",
-});
+export const ComingSoonMessage = styled("div", ["ds-p-3", "ds-text-center"]);

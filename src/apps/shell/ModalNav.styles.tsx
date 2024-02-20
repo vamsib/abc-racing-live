@@ -1,77 +1,63 @@
 import { Link } from "react-router-dom";
-import { styled } from "../../ds/stitches.config";
+import { styled, styledComponent } from "../../ds/utils";
 
-export const Nav = styled("nav", {
-  position: "absolute",
-  width: "100%",
-  height: "90%",
-  backgroundColor: "transparent",
-  top: "10%",
-});
+export const Nav = styled("nav", [
+  "ds-absolute",
+  "ds-w-full",
+  "ds-h-[90%]",
+  "ds-top-[10%]",
+  "ds-bg-transparent",
+]);
 
-export const MenuButton = styled("a", {
-  background: "none",
-  border: "0 none",
-});
+export const MenuButton = styled("a", ["ds-border-0", "ds-bg-transparent"]);
 
-export const NavContainer = styled("div", {
-  height: "100%",
-  width: "80%",
-  position: "absolute",
-  right: "0",
-  backgroundColor: "$highVis",
-  boxShadow: "3px 5px 6px 2px #000",
+export const NavContainer = styled("div", [
+  "ds-h-full",
+  "ds-w-[80%]",
+  "md:ds-w-[60%]",
+  "ds-absolute",
+  "ds-right-[0]",
+  "ds-bg-highVis",
+  "ds-shadow-[3px_5px_6px_2px_#000]",
+]);
 
-  "@md": {
-    width: "60%",
-  },
-});
+export const MainNav = styled("ul", ["ds-list-none", "ds-p-0", "ds-m-0"]);
 
-export const MainNav = styled("ul", {
-  listStyleType: "none",
-  padding: "0",
-  margin: "0",
-});
+export const MainNavItem = styled("li", [
+  "ds-px-3",
+  "ds-py-2",
+  "hover:ds-bg-[#ccc]",
+]);
 
-export const MainNavItem = styled("li", {
-  padding: "$3 $2",
-  "&:hover": {
-    backgroundColor: "#ccc",
-  },
-});
+export const SecondaryNav = styled("ul", [
+  "ds-list-none",
+  "ds-p-0",
+  "ds-m-0",
+  "ds-border-t",
+  "ds-border-solid",
+  "ds-border-[#ccc]",
+]);
 
-export const SecondaryNav = styled("ul", {
-  listStyleType: "none",
-  padding: "0",
-  margin: "0",
-  borderTop: "1px solid #ccc",
-});
+export const SecondaryNavItem = styled("li", [
+  "ds-px-3",
+  "ds-py-2",
+  "hover:ds-bg-[#ccc]",
+]);
 
-export const SecondaryNavItem = styled("li", {
-  padding: "$3 $2",
-  "&:hover": {
-    backgroundColor: "#ccc",
-  },
-});
+export const NavLink = styledComponent(Link, [
+  "ds-text-primaryCopy",
+  "ds-text-mediumCopy",
+  "md:ds-text-xlCopy",
+  "ds-no-underline",
+]);
 
-export const NavLink = styled(Link, {
-  color: "$primaryCopy",
-  textDecoration: "none",
-  fontSize: "$mediumCopy",
-  "@md": {
-    fontSize: "$xlCopy",
-  },
-});
+export const SecondaryNavLink = styledComponent(Link, [
+  "ds-text-primaryCopy",
+  "ds-text-mainCopy",
+  "md:ds-text-largeCopy",
+  "ds-no-underline",
+]);
 
-export const SecondaryNavLink = styled(Link, {
-  color: "$primaryCopy",
-  textDecoration: "none",
-  fontSize: "$mainCopy",
-  "@md": {
-    fontSize: "$largeCopy",
-  },
-});
+export const LanguageSwitcher = styled("ul", []);
 
-export const LanguageSwitcher = styled("ul", {});
-
-export const LanguageSelector = styled("button", {});
+export const LanguageSelector = styled("button", []);

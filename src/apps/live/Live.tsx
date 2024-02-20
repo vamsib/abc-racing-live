@@ -9,7 +9,7 @@ const Live = () => {
   }, []);
   return positions?.length ? (
     <LivePositions>
-      <thead>
+      <thead className="ds-uppercase">
         <th>Pos.</th>
         <th>Name</th>
         <th>Sector 1</th>
@@ -21,11 +21,11 @@ const Live = () => {
         {positions.map((position) => (
           <tr key={`p-${position.position}`}>
             <td>{position.position}</td>
-            <td>{position.player}</td>
+            <td className="ds-bg-[rgb(48,_49,_52)]">{position.player}</td>
             <td>{position.sector1}</td>
-            <td>{position.sector2}</td>
+            <td className="ds-bg-[rgb(48,_49,_52)]">{position.sector2}</td>
             <td>{position.sector3}</td>
-            <td>{position.int}</td>
+            <td className="ds-bg-[rgb(48,_49,_52)]">{position.int}</td>
           </tr>
         ))}
       </tbody>

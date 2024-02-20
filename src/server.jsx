@@ -1,16 +1,17 @@
 import express from "express";
-import ReactDOMServer from "react-dom/server";
+import {renderToPipeableStream} from "react-dom/server";
 import { StaticRouter } from "react-router-dom/server";
 import App from "./app";
 import path from 'path';
-import { getCssText } from "./ds/stitches.config";
 import { I18nextProvider, initReactI18next } from 'react-i18next';
 import routes from "./routes";
 import resources from "./resources.json";
 import { getTitles } from "./utils";
+import ServerApp from "./server-app";
 var i18next = require('i18next')
 var middleware = require('i18next-http-middleware')
 const compression = require('compression')
+const fs = require('node:fs');
 
 const titles = getTitles(routes);
 
@@ -40,6 +41,7 @@ app.use(
 
 app.use('/assets', express.static(path.join(__dirname, 'assets'), {
   setHeaders: function(res, path, stat){
+    console.log(path);
     if (path.endsWith('.css')) {
       console.log("setting content type");
       res.set("Content-Type", "text/css");
@@ -48,30 +50,23 @@ app.use('/assets', express.static(path.join(__dirname, 'assets'), {
 }))
 
 app.get("*", (req, res) => {
-  let html = ReactDOMServer.renderToString(
-    <StaticRouter location={req.url}>
-      <I18nextProvider i18n={req.i18n}><App /></I18nextProvider>      
-    </StaticRouter>
-  );
-  const basePage = `<!DOCTYPE html>
-  <html>
-    <head>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>${req.t(titles[req.path]) || "ABC Racing"}</title>
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link rel="preload" href="/assets/fa-solid-900-ZZETRIYD.woff2" as="font" type="font/woff2" crossorigin>
-      <link rel="preload" href="https://fonts.gstatic.com/s/opensans/v40/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTS-mu0SC55I.woff2" as="font" type="font/woff2" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap" rel="stylesheet preload prefetch" as="style">
-      <link href="/assets/client.css" rel="stylesheet" type="text/css"></link>
-      <style id="stitches">${getCssText()}</style>
-      <script defer src="/assets/client.js"></script>
-    </head>
-    <body><div id="root">${html}</div></body>
-  </html>`
-  res.send(basePage);
+  let css = '';
+  try {
+    css = fs.readFileSync('./dist/server.css', 'utf8');
+  } catch (err) {
+    console.error(err);
+  }
+  const { pipe } = renderToPipeableStream(<ServerApp req={req} css={css}></ServerApp>, {
+    bootstrapModules:['/assets/index.js'],
+    onShellReady() {
+      res.setHeader('content-type', 'text/html');
+      pipe(res);
+    }
+  });
+  // let html = ReactDOMServer.renderToString(
+  //   <ServerApp req={req} css={css}></ServerApp>
+  // );
+  // res.send(html);
 });
-
-// app.use(express.static('assets'));
 
 app.listen(3000);

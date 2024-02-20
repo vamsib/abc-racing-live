@@ -25,7 +25,6 @@ const withSSR = (Component: any, dataId: string, init: () => any) => {
         !dataRef?.current?.getAttribute("value") ||
         dataRef?.current?.getAttribute("data-used") === "true"
       ) {
-        console.log("here");
         setProps(init());
       }
       dataRef?.current?.setAttribute("data-used", "true");
@@ -68,6 +67,7 @@ const News = ({ news }: NewsProps) => {
                 sizes="(min-width: 768px) 488px, 120px"
                 src={item.image.sm1.url}
                 alt={item.image.sm1.altText}
+                className="ds-w-full"
               />
               {item.title}
             </NewsListItem>

@@ -1,19 +1,21 @@
 import { Outlet } from "react-router-dom";
-import News from "./apps/news/News";
+// import News from "./apps/news/News";
 import Shell from "./apps/shell/Shell";
-import Live from "./apps/live/Live";
-import { Suspense } from "react";
-import Schedules from "./apps/schedules/Schedules";
-import Rankings from "./apps/rankings/Rankings";
-import Login from "./apps/user/Login";
-import SignUp from "./apps/user/SignUp";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { Page } from "./page";
+
+const News = lazy(() => import("./apps/news/News"));
+const Schedules = lazy(() => import("./apps/schedules/Schedules"));
+const Rankings = lazy(() => import("./apps/rankings/Rankings"));
+const Login = lazy(() => import("./apps/user/Login"));
+const SignUp = lazy(() => import("./apps/user/SignUp"));
+const Live = lazy(() => import("./apps/live/Live"));
 
 export type Route = {
   path: string;
   title: string;
   element: React.ReactNode;
-  children: Route[];
+  children?: Route[];
 };
 
 export default [
@@ -34,7 +36,9 @@ export default [
             <Suspense fallback={<div>Live timings loading!</div>}>
               <Live></Live>
             </Suspense>
-            <News></News>
+            <Suspense fallback={<div>News loading</div>}>
+              <News></News>
+            </Suspense>
           </Page>
         ),
       },
@@ -43,7 +47,9 @@ export default [
         title: "ABCRacingSchedules",
         element: (
           <Page>
-            <Schedules></Schedules>
+            <Suspense fallback={<div>Schedules loading</div>}>
+              <Schedules></Schedules>
+            </Suspense>
           </Page>
         ),
       },
@@ -52,7 +58,9 @@ export default [
         title: "ABCRacingRankings",
         element: (
           <Page>
-            <Rankings></Rankings>
+            <Suspense fallback={<div>Rankings loading</div>}>
+              <Rankings></Rankings>
+            </Suspense>
           </Page>
         ),
       },
@@ -62,7 +70,9 @@ export default [
         title: "ABCRacingLogin",
         element: (
           <Page>
-            <Login></Login>
+            <Suspense fallback={<div>Login loading</div>}>
+              <Login></Login>
+            </Suspense>
           </Page>
         ),
       },
@@ -71,7 +81,9 @@ export default [
         title: "ABCRacingSignUp",
         element: (
           <Page>
-            <SignUp></SignUp>
+            <Suspense fallback={<div>Login loading</div>}>
+              <SignUp></SignUp>
+            </Suspense>
           </Page>
         ),
       },
